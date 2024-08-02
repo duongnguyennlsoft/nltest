@@ -1,6 +1,6 @@
 // Home.js
 import { FlashList } from "@shopify/flash-list";
-import React from "react";
+import React, { useContext } from "react";
 import { TouchableOpacity, View } from "react-native";
 import ProductItem from "../../components/ProductItem";
 import { styles } from "./styles";
@@ -9,7 +9,7 @@ import RNText from "../../components/RNText";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Home() {
-  const { products } = React.useContext(ProductsContext);
+  const { products } = useContext(ProductsContext);
   const { navigate } = useNavigation<any>();
   const onPressAdd = () => {
     navigate("EditProduct");
@@ -18,6 +18,7 @@ export default function Home() {
   const renderItem = ({ item }: { item: Product }) => {
     return <ProductItem item={item} />;
   };
+
   return (
     <View style={styles.container}>
       <FlashList

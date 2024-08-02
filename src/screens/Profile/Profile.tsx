@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useContext } from "react";
 import { Text } from "react-native";
 import Layout from "../../components/Layout";
 import MyButton from "../../components/MyButton";
@@ -11,8 +11,8 @@ import { loginSchema } from "../../lib/yup";
 import { styles } from "./styles";
 
 export default function Profile() {
-  const { user, updateUser } = React.useContext(UserContext);
-  const { clearCart } = React.useContext(CartContext);
+  const { user, updateUser } = useContext(UserContext);
+  const { clearCart } = useContext(CartContext);
   const { replace } = useNavigation<any>();
   const logout = () => {
     updateUser(undefined);

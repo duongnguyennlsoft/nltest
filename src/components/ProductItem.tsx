@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import FastImage from "react-native-fast-image";
 import theme from "../common/theme";
@@ -12,17 +12,12 @@ type ProductItemProps = {
 
 const ProductItem: React.FC<ProductItemProps> = ({ item }) => {
   const { navigate } = useNavigation<any>();
-  const { updateItem, removeItem, cart } = React.useContext(CartContext);
+  const { updateItem, removeItem, cart } = useContext(CartContext);
   const itemInCart = cart?.find((product) => product.id === item.id);
-  const [quantity, setQuantity] = React.useState(itemInCart?.quantity ?? 0);
-
-  React.useEffect(() => {
-    setQuantity(itemInCart?.quantity ?? 0);
-  }, [itemInCart?.quantity]);
+  const [quantity, setQuantity] = useState(0);
 
   const onIncrease = () => {
     setQuantity((prev) => prev + 1);
-    updateItem(item, quantity + 1);
   };
 
   const onDecrease = () => {
@@ -37,6 +32,17 @@ const ProductItem: React.FC<ProductItemProps> = ({ item }) => {
       id: item.id,
     });
   };
+
+  useEffect(() => {
+    if (!itemInCart) return;
+    if (itemInCart?.quantity !== 0) {
+      setQuantity(itemInCart?.quantity);
+    }
+  }, [itemInCart?.quantity]);
+
+  useEffect(() => {
+    updateItem(item, quantity);
+  }, [quantity]);
 
   return (
     <TouchableOpacity style={[styles.container]} onPress={onPressItem}>
@@ -86,5 +92,4 @@ const styles = StyleSheet.create({
   action: { padding: 4 },
 });
 
-export default ProductItem;
-// export default React.memo(ProductItem);
+export default memo(ProductItem);

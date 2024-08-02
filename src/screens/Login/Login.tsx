@@ -1,7 +1,7 @@
 // Login.js
 import { useNavigation } from "@react-navigation/native";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useContext } from "react";
 import { Text, View } from "react-native";
 import theme from "../../common/theme";
 import Layout from "../../components/Layout";
@@ -13,7 +13,7 @@ import MyButton from "../../components/MyButton";
 import RNText from "../../components/RNText";
 
 export default function Login() {
-  const { updateUser } = React.useContext(UserContext);
+  const { updateUser } = useContext(UserContext);
   const { replace } = useNavigation<any>();
   const form = useFormik({
     validationSchema: loginSchema,

@@ -55,8 +55,6 @@ const MyTabBar = ({ state, navigation }: BottomTabBarProps) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
     backgroundColor: "#FFF",
     flexDirection: "row",
   },

@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { useMMKVObject } from "react-native-mmkv";
 import { PRODUCTS } from "../common";
 import { storage } from "../lib/mmkv";
@@ -27,7 +27,7 @@ export const ProductsProvider = ({ children }: React.PropsWithChildren) => {
     removeItem: removeItemInCart,
     cart,
     updateItem: updateItemInCart,
-  } = React.useContext(CartContext);
+  } = useContext(CartContext);
   const removeItem = (product: Product) => {
     removeItemInCart(product);
     if (products?.length! > 0) {
@@ -59,7 +59,7 @@ export const ProductsProvider = ({ children }: React.PropsWithChildren) => {
     return products?.find((e) => e.id === id);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!products) {
       setProducts(data);
     }

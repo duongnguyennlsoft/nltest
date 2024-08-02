@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import RNDatePicker from "react-native-date-picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -40,7 +40,7 @@ interface Props {
 export default function UserForm({ form }: Props) {
   const { handleChange, handleBlur, values, errors, touched } = form;
 
-  const [showDatePicker, setShowDatePicker] = React.useState<boolean>(false);
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const openDatePicker = () => setShowDatePicker(true);
   const closeDatePicker = () => setShowDatePicker(false);
 
@@ -53,8 +53,7 @@ export default function UserForm({ form }: Props) {
         address: "",
         dayOfBirth: "",
       }}
-      onSubmit={(values) => {
-      }}
+      onSubmit={(values) => {}}
     >
       <View>
         <View style={styles.formContainer}>

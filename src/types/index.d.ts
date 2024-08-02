@@ -17,3 +17,10 @@ type Product = {
 interface CartItem extends Product {
   quantity: number;
 }
+
+type Discount = {
+  id: string;
+  code: string;
+  isPercent: boolean;
+  discountValue: number;
+};

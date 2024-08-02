@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Animated, StyleSheet, TouchableOpacity, View } from "react-native";
 import FastImage from "react-native-fast-image";
 import theme from "../common/theme";
@@ -11,8 +11,7 @@ type CartItemProps = {
 };
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
-  const { removeItem, updateItem } = React.useContext(CartContext);
-
+  const { removeItem, updateItem } = useContext(CartContext);
   const handleDelete = () => {
     removeItem(item);
   };
@@ -117,4 +116,3 @@ const styles = StyleSheet.create({
 });
 
 export default CartItem;
-// export default React.memo(CartItem);

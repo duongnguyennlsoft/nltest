@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useMemo } from "react";
 import { useMMKVObject } from "react-native-mmkv";
 import { USER_CART } from "../common";
 import { storage } from "../lib/mmkv";
@@ -30,18 +30,18 @@ export const CartProvider = ({ children }: React.PropsWithChildren) => {
   };
 
   const updateItem = (product: Product, quantity: number) => {
+    if (quantity === 0) {
+      removeItem(product);
+      return;
+    }
     if (cart) {
       const index = cart.findIndex((item) => item.id === product.id);
       if (index === -1) {
         setCart([...cart, { ...product, quantity }]);
       } else {
-        const newCart = cart.map((item) => {
-          if (item.id === product.id) {
-            return { ...product, quantity };
-          }
-          return item;
-        });
-        setCart(newCart);
+        const updatedElements = [...cart];
+        updatedElements[index].quantity = quantity;
+        setCart(updatedElements);
       }
     } else {
       setCart([{ ...product, quantity }]);
@@ -52,7 +52,7 @@ export const CartProvider = ({ children }: React.PropsWithChildren) => {
     setCart(undefined);
   };
 
-  const total = React.useMemo(() => {
+  const total = useMemo(() => {
     return cart?.reduce((sum, item) => {
       return item.price * item.quantity + sum;
     }, 0);

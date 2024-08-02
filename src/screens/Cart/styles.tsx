@@ -28,7 +28,10 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
   input: {
-    borderWidth: 1,
+    height: "80%",
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    backgroundColor: "#FFF",
     flex: 1,
     marginLeft: 16,
   },
@@ -37,5 +40,9 @@ export const styles = StyleSheet.create({
     marginTop: 12,
     flexDirection: "row",
     alignItems: "center",
+  },
+  errorText: {
+    color: "red",
+    marginHorizontal: 16,
   },
 });

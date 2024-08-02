@@ -1,12 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createStackNavigator } from "@react-navigation/stack";
-import React from "react";
+import React, { useContext } from "react";
 import { AppBottomTab } from "../components/AppTabbar";
 import UserContext from "../contexts/UserContext";
+import EditProduct from "../screens/EditProduct/EditProduct";
 import Login from "../screens/Login/Login";
 import ProductDetails from "../screens/ProductDetails/ProductDetails";
-import EditProduct from "../screens/EditProduct/EditProduct";
+import Order from "../screens/Order/Order";
 
 const Stack = createStackNavigator();
 const NativeStack = createNativeStackNavigator<RootStackParamList>();
@@ -17,6 +18,7 @@ const screensConfig: AppScreenConfig[] = [
     component: AppBottomTab,
     options: {
       headerShown: false,
+      title: "Home",
     },
   },
   {
@@ -30,6 +32,16 @@ const screensConfig: AppScreenConfig[] = [
   {
     name: "ProductDetails",
     component: ProductDetails,
+    options: {
+      title: "Product Details",
+    },
+  },
+  {
+    name: "Order",
+    component: Order,
+    options: {
+      title: "Order",
+    },
   },
   {
     name: "EditProduct",
@@ -59,7 +71,7 @@ function generateScreens(screensConfig: AppScreenConfig[]) {
 }
 
 export default function Navigation() {
-  const { user } = React.useContext(UserContext);
+  const { user } = useContext(UserContext);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={user ? "App" : "Login"}>

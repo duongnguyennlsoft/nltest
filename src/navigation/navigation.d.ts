@@ -39,6 +39,9 @@ declare global {
     EditProduct: {
       item?: Product;
     };
+    Order: {
+      discount: Discount;
+    };
   };
 
   type AppStackParamList = {

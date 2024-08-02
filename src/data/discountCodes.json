@@ -1,0 +1,32 @@
+[
+  {
+    "id": "66ac3910ae40c8ca2f81397d",
+    "code": "D123122",
+    "isPercent": false,
+    "discountValue": 8
+  },
+  {
+    "id": "66ac39101808f2cc4602fc3c",
+    "code": "D123123",
+    "isPercent": false,
+    "discountValue": 9
+  },
+  {
+    "id": "66ac3910bc6e42b6ffd62c96",
+    "code": "D123124",
+    "isPercent": true,
+    "discountValue": 9
+  },
+  {
+    "id": "66ac3910be8f8da0535bad48",
+    "code": "D123125",
+    "isPercent": true,
+    "discountValue": 14
+  },
+  {
+    "id": "66ac391099cd52b22eb2c250",
+    "code": "D123126",
+    "isPercent": false,
+    "discountValue": 13
+  }
+]
