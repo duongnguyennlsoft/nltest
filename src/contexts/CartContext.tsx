@@ -23,8 +23,9 @@ export const CartProvider = ({ children }: React.PropsWithChildren) => {
   const [cart, setCart] = useMMKVObject<CartItem[]>(USER_CART, storage);
 
   const removeItem = (product: Product) => {
-    if (cart?.length! > 0) {
-      const newCart = cart?.filter((item) => item.id !== product.id);
+    if (!cart) return;
+    if (cart.length > 0) {
+      const newCart = cart.filter((item) => item.id !== product.id);
       setCart(newCart);
     }
   };
@@ -53,7 +54,8 @@ export const CartProvider = ({ children }: React.PropsWithChildren) => {
   };
 
   const total = useMemo(() => {
-    return cart?.reduce((sum, item) => {
+    if (!cart) return 0;
+    return cart.reduce((sum, item) => {
       return item.price * item.quantity + sum;
     }, 0);
   }, [JSON.stringify(cart)]);
@@ -64,7 +66,7 @@ export const CartProvider = ({ children }: React.PropsWithChildren) => {
         cart: cart,
         removeItem: removeItem,
         updateItem: updateItem,
-        total: total ?? 0,
+        total: total,
         clearCart: clearCart,
       }}
     >

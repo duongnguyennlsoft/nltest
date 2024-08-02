@@ -35,8 +35,8 @@ const ProductItem: React.FC<ProductItemProps> = ({ item }) => {
 
   useEffect(() => {
     if (!itemInCart) return;
-    if (itemInCart?.quantity !== 0) {
-      setQuantity(itemInCart?.quantity);
+    if (itemInCart.quantity !== 0) {
+      setQuantity(itemInCart.quantity);
     }
   }, [itemInCart?.quantity]);
 
@@ -46,7 +46,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ item }) => {
 
   return (
     <TouchableOpacity style={[styles.container]} onPress={onPressItem}>
-      <FastImage source={{ uri: item.image?.[0] }} style={styles.image} />
+      <FastImage source={{ uri: item.image[0] }} style={styles.image} />
       <View style={styles.contentContainer}>
         <RNText>{item.name}</RNText>
         <RNText numberOfLines={2}>{item.description}</RNText>

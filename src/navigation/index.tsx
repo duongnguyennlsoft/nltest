@@ -48,7 +48,7 @@ const screensConfig: AppScreenConfig[] = [
     component: EditProduct,
     options: (props) => {
       return {
-        title: props.route?.params?.item ? "Edit Product" : "Create Product",
+        title: props.route.params?.item ? "Edit Product" : "Create Product",
       };
     },
   },

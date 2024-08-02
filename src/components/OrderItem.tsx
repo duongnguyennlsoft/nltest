@@ -11,11 +11,11 @@ type CartItemProps = {
 const OrderItem: React.FC<CartItemProps> = ({ item }) => {
   return (
     <View style={[styles.container]}>
-      <FastImage source={{ uri: item.image?.[0] }} style={styles.image} />
+      <FastImage source={{ uri: item.image[0] }} style={styles.image} />
       <View style={styles.contentContainer}>
         <RNText>{item.name}</RNText>
         <RNText style={styles.price}>
-          {item.price}$ x {item?.quantity}
+          {item.price}$ x {item.quantity}
         </RNText>
       </View>
     </View>

@@ -29,9 +29,10 @@ export const ProductsProvider = ({ children }: React.PropsWithChildren) => {
     updateItem: updateItemInCart,
   } = useContext(CartContext);
   const removeItem = (product: Product) => {
+    if (!products) return;
     removeItemInCart(product);
-    if (products?.length! > 0) {
-      const newProducts = products?.filter((item) => item.id !== product.id);
+    if (products.length! > 0) {
+      const newProducts = products.filter((item) => item.id !== product.id);
       setProducts(newProducts);
     }
   };
@@ -41,7 +42,8 @@ export const ProductsProvider = ({ children }: React.PropsWithChildren) => {
   };
 
   const updateItem = (product: Product) => {
-    const newProducts = products?.map((item) => {
+    if (!products) return;
+    const newProducts = products.map((item) => {
       if (item.id === product.id) {
         return product;
       }
@@ -49,14 +51,16 @@ export const ProductsProvider = ({ children }: React.PropsWithChildren) => {
     });
     setProducts(newProducts);
 
-    const itemInCart = cart?.find((e) => e.id === product.id);
+    if (!cart) return;
+    const itemInCart = cart.find((e) => e.id === product.id);
     if (itemInCart) {
       updateItemInCart(product, itemInCart.quantity);
     }
   };
 
   const getDetails = (id: string) => {
-    return products?.find((e) => e.id === id);
+    if (!products) return;
+    return products.find((e) => e.id === id);
   };
 
   useEffect(() => {

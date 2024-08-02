@@ -60,7 +60,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
       containerStyle={{ marginBottom: 16 }}
     >
       <View style={[styles.container]}>
-        <FastImage source={{ uri: item.image?.[0] }} style={styles.image} />
+        <FastImage source={{ uri: item.image[0] }} style={styles.image} />
         <View style={styles.contentContainer}>
           <RNText>{item.name}</RNText>
           <RNText numberOfLines={3}>{item.description}</RNText>
@@ -70,7 +70,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
           <TouchableOpacity style={styles.action} onPress={onDecrease}>
             <RNText>-</RNText>
           </TouchableOpacity>
-          <RNText style={styles.quantityText}>{item?.quantity}</RNText>
+          <RNText style={styles.quantityText}>{item.quantity}</RNText>
           <TouchableOpacity style={styles.action} onPress={onIncrease}>
             <RNText>+</RNText>
           </TouchableOpacity>

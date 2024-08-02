@@ -29,7 +29,9 @@ export default function ProductDetails({
   };
 
   const renderImages = () => {
-    return image?.map((e, index) => {
+    if (!image) return null;
+
+    return image.map((e, index) => {
       const isActive = index === currentImage;
 
       return (
