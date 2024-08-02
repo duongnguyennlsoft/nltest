@@ -24,30 +24,35 @@ export const AppBottomTab = () => {
 
 const MyTabBar = ({ state, navigation }: BottomTabBarProps) => {
   const { bottom } = useSafeAreaInsets();
+
+  const renderItems = () => {
+    return state.routes.map((route, index) => {
+      const label = route.name;
+      const isFocused = state.index === index;
+      const onPress = () => {
+        navigation.navigate(route.name, route.params);
+      };
+
+      return (
+        <Pressable key={index} onPress={onPress} style={styles.btn}>
+          <RNText
+            style={[
+              styles.text,
+              {
+                color: isFocused ? "#00B6FD" : "#808998",
+              },
+            ]}
+          >
+            {label}
+          </RNText>
+        </Pressable>
+      );
+    });
+  };
+
   return (
     <View style={[styles.container, { paddingBottom: bottom }]}>
-      {state.routes.map((route, index) => {
-        const label = route.name;
-        const isFocused = state.index === index;
-        const onPress = () => {
-          navigation.navigate(route.name, route.params);
-        };
-
-        return (
-          <Pressable key={index} onPress={onPress} style={styles.btn}>
-            <RNText
-              style={[
-                styles.text,
-                {
-                  color: isFocused ? "#00B6FD" : "#808998",
-                },
-              ]}
-            >
-              {label}
-            </RNText>
-          </Pressable>
-        );
-      })}
+      {renderItems()}
     </View>
   );
 };

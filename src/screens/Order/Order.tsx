@@ -1,21 +1,18 @@
 import { FlashList } from "@shopify/flash-list";
-import React, { useContext } from "react";
-import Layout from "../../components/Layout";
-import OrderItem from "../../components/OrderItem";
-import CartContext from "../../contexts/CartContext";
-import { styles } from "./styles";
-import { getDiscountValue } from "../../utils";
-import { View } from "react-native";
-import RNText from "../../components/RNText";
-import UserContext from "../../contexts/UserContext";
 import dayjs from "dayjs";
+import React, { useContext } from "react";
+import { View } from "react-native";
+import Layout from "../../components/Layout";
 import MyButton from "../../components/MyButton";
+import OrderItem from "../../components/OrderItem";
+import RNText from "../../components/RNText";
+import CartContext from "../../contexts/CartContext";
+import UserContext from "../../contexts/UserContext";
+import { getDiscountValue } from "../../utils";
+import { styles } from "./styles";
 
-export default function Cart({
-  route: {
-    params: { discount },
-  },
-}: RootScreenProps<"Order">) {
+export default function Cart({ route }: RootScreenProps<"Order">) {
+  const { discount } = route.params;
   const { cart, total: totalInCart } = useContext(CartContext);
   const { user } = useContext(UserContext);
 
@@ -46,8 +43,8 @@ export default function Cart({
         return user[e];
       };
       return (
-        <View style={styles.row}>
-          <RNText style={[styles.itemTitle]}>{e}</RNText>
+        <View style={styles.row} key={e}>
+          <RNText style={[styles.itemTitle]}>{e.toLowerCase()}</RNText>
           <RNText style={styles.itemPrice}>{renderValue()}</RNText>
         </View>
       );

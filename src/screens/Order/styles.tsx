@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   itemTitle: {
+    textTransform: 'capitalize',
     marginTop: 8,
     fontSize: 16,
   },
