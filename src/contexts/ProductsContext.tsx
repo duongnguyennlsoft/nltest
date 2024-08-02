@@ -23,14 +23,11 @@ const ProductsContext = createContext<ProductsContextProps>({
 
 export const ProductsProvider = ({ children }: React.PropsWithChildren) => {
   const [products, setProducts] = useMMKVObject<Product[]>(PRODUCTS, storage);
-  const {
-    removeItem: removeItemInCart,
-    cart,
-    updateItem: updateItemInCart,
-  } = useContext(CartContext);
+  const { cart, updateItem: updateItemInCart } = useContext(CartContext);
+  
   const removeItem = (product: Product) => {
     if (!products) return;
-    removeItemInCart(product);
+    updateItemInCart(product, 0);
     if (products.length! > 0) {
       const newProducts = products.filter((item) => item.id !== product.id);
       setProducts(newProducts);

@@ -5,7 +5,6 @@ import { storage } from "../lib/mmkv";
 
 interface CartContextProps {
   cart?: CartItem[];
-  removeItem: (product: Product) => void;
   updateItem: (product: Product, quantity: number) => void;
   total: number;
   clearCart: () => void;
@@ -13,7 +12,6 @@ interface CartContextProps {
 
 const CartContext = createContext<CartContextProps>({
   cart: [],
-  removeItem: () => {},
   updateItem: () => {},
   total: 0,
   clearCart: () => {},
@@ -21,7 +19,6 @@ const CartContext = createContext<CartContextProps>({
 
 export const CartProvider = ({ children }: React.PropsWithChildren) => {
   const [cart, setCart] = useMMKVObject<CartItem[]>(USER_CART, storage);
-
   const removeItem = (product: Product) => {
     if (!cart) return;
     if (cart.length > 0) {
@@ -41,7 +38,7 @@ export const CartProvider = ({ children }: React.PropsWithChildren) => {
         setCart([...cart, { ...product, quantity }]);
       } else {
         const updatedElements = [...cart];
-        updatedElements[index].quantity = quantity;
+        updatedElements[index] = { ...product, quantity };
         setCart(updatedElements);
       }
     } else {
@@ -64,7 +61,6 @@ export const CartProvider = ({ children }: React.PropsWithChildren) => {
     <CartContext.Provider
       value={{
         cart: cart,
-        removeItem: removeItem,
         updateItem: updateItem,
         total: total,
         clearCart: clearCart,

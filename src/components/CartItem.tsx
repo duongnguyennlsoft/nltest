@@ -11,9 +11,9 @@ type CartItemProps = {
 };
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
-  const { removeItem, updateItem } = useContext(CartContext);
+  const { updateItem } = useContext(CartContext);
   const handleDelete = () => {
-    removeItem(item);
+    updateItem(item, 0);
   };
 
   const onIncrease = () => {
@@ -22,7 +22,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 
   const onDecrease = () => {
     if (item.quantity === 1) {
-      removeItem(item);
+      updateItem(item, 0);
     } else {
       updateItem(item, item.quantity - 1);
     }

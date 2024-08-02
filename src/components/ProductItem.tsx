@@ -12,18 +12,17 @@ type ProductItemProps = {
 
 const ProductItem: React.FC<ProductItemProps> = ({ item }) => {
   const { navigate } = useNavigation<any>();
-  const { updateItem, removeItem, cart } = useContext(CartContext);
+  const { updateItem, cart } = useContext(CartContext);
   const itemInCart = cart?.find((product) => product.id === item.id);
   const [quantity, setQuantity] = useState(0);
 
   const onIncrease = () => {
     setQuantity((prev) => prev + 1);
+    updateItem(item, quantity + 1);
   };
 
   const onDecrease = () => {
-    if (quantity === 1) {
-      removeItem(item);
-    }
+    updateItem(item, quantity - 1);
     setQuantity((prev) => Math.max(0, prev - 1));
   };
 
@@ -34,15 +33,8 @@ const ProductItem: React.FC<ProductItemProps> = ({ item }) => {
   };
 
   useEffect(() => {
-    if (!itemInCart) return;
-    if (itemInCart.quantity !== 0) {
-      setQuantity(itemInCart.quantity);
-    }
+    setQuantity(itemInCart?.quantity ?? 0);
   }, [itemInCart?.quantity]);
-
-  useEffect(() => {
-    updateItem(item, quantity);
-  }, [quantity]);
 
   return (
     <TouchableOpacity style={[styles.container]} onPress={onPressItem}>
@@ -92,4 +84,4 @@ const styles = StyleSheet.create({
   action: { padding: 4 },
 });
 
-export default memo(ProductItem);
+export default ProductItem;
