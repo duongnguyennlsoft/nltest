@@ -1,6 +1,6 @@
 import { FlashList } from "@shopify/flash-list";
 import dayjs from "dayjs";
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { View } from "react-native";
 import Layout from "../../components/Layout";
 import MyButton from "../../components/MyButton";
@@ -15,54 +15,46 @@ export default function Cart({ route }: RootScreenProps<"Order">) {
   const { discount } = route.params;
   const { cart, total: totalInCart } = useContext(CartContext);
   const { user } = useContext(UserContext);
+  const discountValue = useMemo(
+    () => getDiscountValue(discount, totalInCart),
+    [discount, totalInCart]
+  );
 
-  const discountValue = getDiscountValue(discount, totalInCart);
-  const total = totalInCart - discountValue;
-  const renderItem = ({ item }: { item: CartItem }) => {
-    return <OrderItem item={item} />;
-  };
+  const total = useMemo(
+    () => totalInCart - discountValue,
+    [totalInCart, discountValue]
+  );
 
-  const renderDisCount = () => {
-    return (
-      discount && (
-        <View style={styles.row}>
-          <RNText style={styles.itemTitle}>
-            Discount Code: {discount.code}
-          </RNText>
-          <RNText style={styles.itemPrice}>{discountValue}$</RNText>
-        </View>
-      )
+  const renderItem = ({ item }: { item: CartItem }) => (
+    <OrderItem item={item} />
+  );
+
+  const renderDisCount = () =>
+    discount && (
+      <View style={styles.row}>
+        <RNText style={styles.itemTitle}>Discount Code: {discount.code}</RNText>
+        <RNText style={styles.itemPrice}>{discountValue}$</RNText>
+      </View>
     );
-  };
 
-  const renderUserInformation = () => {
-    return Object.keys(user ?? {}).map((e) => {
-      const renderValue = () => {
-        const isDate = e === "dayOfBirth";
-        if (isDate) return dayjs(user[e]).format("DD/MM/YYYY");
-        return user[e];
-      };
-      return (
-        <View style={styles.row} key={e}>
-          <RNText style={[styles.itemTitle]}>{e.toLowerCase()}</RNText>
-          <RNText style={styles.itemPrice}>{renderValue()}</RNText>
-        </View>
-      );
-    });
-  };
+  const renderUserInformation = () =>
+    Object.entries(user ?? {}).map(([key, value]) => (
+      <View style={styles.row} key={key}>
+        <RNText style={styles.itemTitle}>{key.toLowerCase()}</RNText>
+        <RNText style={styles.itemPrice}>
+          {key === "dayOfBirth" ? dayjs(value).format("DD/MM/YYYY") : value}
+        </RNText>
+      </View>
+    ));
 
   return (
     <Layout style={styles.container}>
       <View style={styles.items}>
         <RNText
-          style={[
-            styles.itemTitle,
-            { alignSelf: "center", marginBottom: 8, marginTop: 0 },
-          ]}
+          style={[styles.itemTitle, { alignSelf: "center", marginBottom: 8 }]}
         >
           Your items
         </RNText>
-
         <FlashList
           data={cart}
           renderItem={renderItem}
@@ -70,16 +62,13 @@ export default function Cart({ route }: RootScreenProps<"Order">) {
         />
         {renderDisCount()}
         <View style={styles.row}>
-          <RNText style={[styles.itemTitle]}>Total</RNText>
+          <RNText style={styles.itemTitle}>Total</RNText>
           <RNText style={styles.itemPrice}>{total}$</RNText>
         </View>
       </View>
       <View style={styles.items}>
         <RNText
-          style={[
-            styles.itemTitle,
-            { alignSelf: "center", marginBottom: 8, marginTop: 0 },
-          ]}
+          style={[styles.itemTitle, { alignSelf: "center", marginBottom: 8 }]}
         >
           Your information
         </RNText>
