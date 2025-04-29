@@ -11,6 +11,11 @@ import UserContext from "../../contexts/UserContext";
 import { getDiscountValue } from "../../utils";
 import { styles } from "./styles";
 
+/**
+ * Displays the shopping cart with item details, applied discount, total price, and user information.
+ *
+ * Renders a list of cart items, shows discount information if available, calculates and displays the final total, and presents user details. Includes a confirmation button for proceeding with the order.
+ */
 export default function Cart({ route }: RootScreenProps<"Order">) {
   const { discount } = route.params;
   const { cart, total: totalInCart } = useContext(CartContext);
