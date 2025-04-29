@@ -1,0 +1,27 @@
+review:
+  enable: true
+  model: gpt-4o  # gpt-4o nhanh và rẻ hơn gpt-4
+  review_comment_likelihood: medium  # medium để vừa đủ comment, không spam
+  summarize_pr: true
+  comment_outdated: false
+
+guidelines:
+  - Ensure code follows clean code principles.
+  - Check for correct TypeScript types and proper usage of interfaces.
+  - Review component structure and suggest improvements if needed.
+  - Recommend optimizing re-renders and avoiding unnecessary state.
+  - Look for potential performance issues (e.g., FlatList optimizations).
+  - Ensure that hooks (useEffect, useMemo, useCallback) are used properly.
+  - Check naming conventions for variables, functions, and components.
+  - Detect possible null/undefined errors and suggest fixes.
+  - Suggest improvements for better readability and maintainability.
+
+pr_description:
+  prompt: |
+    Hãy tóm tắt PR này theo các mục:
+    - Mục đích thay đổi?
+    - Thay đổi chính là gì?
+    - Cách kiểm tra/verify?
+
+automerge:
+  enable: false  # không tự merge để vẫn cần người duyệt thủ công
