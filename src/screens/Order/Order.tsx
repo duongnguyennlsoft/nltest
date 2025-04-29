@@ -15,11 +15,13 @@ export default function Cart({ route }: RootScreenProps<"Order">) {
   const { discount } = route.params;
   const { cart, total: totalInCart } = useContext(CartContext);
   const { user } = useContext(UserContext);
+  const a = null;
 
   const discountValue = useMemo(
     () => getDiscountValue(discount, totalInCart),
     [discount, totalInCart]
   );
+
   const total = useMemo(
     () => totalInCart - discountValue,
     [totalInCart, discountValue]
